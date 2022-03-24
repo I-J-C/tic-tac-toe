@@ -3,17 +3,18 @@ class tttBoard {
         // this.player1 = player1;
         // this.player2 = player2;
         this.boardGrid = boardGrid;
-        this.turn = 'red';
+        this.setRedTurn();
+        this.addListeners();
         //add this to constructor for bonus
-        // this.turnTracker = this.turnTracker;
+        // this.turnTracker = turnTracker;
     }
 
-    currentTurn(element) {
+    currentTurn(square) {
         if (this.turn === 'red') {
-            element.classList.add('red');
+            square.classList.add('red');
             this.setBlueTurn();
-        }else{
-            element.classList.add('blue');
+        }else if (this.turn === 'blue'){
+            square.classList.add('blue');
             this.setRedTurn();
         }
     }
@@ -31,19 +32,34 @@ class tttBoard {
     }
 
     resetGame() {
-
+        this.removeSpaces();
+        this.addListeners();
+        this.setRedTurn();
     }
 
-    addEventListeners(){
+    addListeners(){
         for (let i=0; i<this.boardGrid.length; i++) {
             this.boardGrid[i].addEventListener('click', () => {
-                    this.currentTurn(this.boardGrid[i])
+                this.currentTurn(this.boardGrid[i]);
             }, {once:true})
         }
     }
-}
+
+    removeSpaces() {
+        for (let i=0; i<this.boardGrid.length; i++) {
+                this.boardGrid[i].classList.remove('red');
+                this.boardGrid[i].classList.remove('blue');
+            }
+        }
+        // checkSquare(square){
+        //     this.currentTurn(square);
+        //     //ADD LINE HERE TO TRACK CURRENT TURN
+        // }
+    }
+
 
 const squares = document.querySelectorAll('.grid-square');
+const resetButton = document.querySelector('#reset-button');
 
 board = new tttBoard(squares);
-board.addEventListeners();
+resetButton.addEventListener('click', () => {board.resetGame()});

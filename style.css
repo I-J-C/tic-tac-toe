@@ -14,6 +14,16 @@ body {
     gap: 30px;
 }
 
+#reset-button {
+    height: 3em;
+    width: 7em;
+    font-weight: bold;
+    color: black;
+    background-color: #389d36;
+    border-radius: 8px;
+    border-style: none;
+}
+
 /* NAV STYLES */
 nav {
     width: 100%;

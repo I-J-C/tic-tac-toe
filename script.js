@@ -37,12 +37,8 @@ class tttBoard {
     addEventListeners(){
         for (let i=0; i<this.boardGrid.length; i++) {
             this.boardGrid[i].addEventListener('click', () => {
-                if (this.boardGrid[i].classList.contains('red') || (this.boardGrid[i].classList.contains('blue'))) {
-                    this.boardGrid[i].removeEventListener('click', arguments.callee);
-                }else{
                     this.currentTurn(this.boardGrid[i])
-                }
-            })
+            }, {once:true})
         }
     }
 }

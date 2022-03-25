@@ -1,7 +1,7 @@
 class tttBoard {
     constructor(boardGrid, turnTracker) {
-        // this.player1 = player1;
-        // this.player2 = player2;
+        // this.redPlayer
+        // this.bluePlayer
         this.boardGrid = boardGrid;
         this.setRedTurn();
         this.addClickListeners();
@@ -16,7 +16,7 @@ class tttBoard {
             square.classList.add('blue');
             this.setRedTurn();
         }
-        this.turnTracker.innerHTML = `${this.turn} turn`;
+        this.trackTurn();
     }
 
     getTurn() {
@@ -35,7 +35,7 @@ class tttBoard {
         this.removeClickListeners();
         this.addClickListeners();
         this.setRedTurn();
-        this.turnTracker.innerHTML = `${this.turn} turn`;
+        this.trackTurn();
         this.removeSpaces();
     }
 
@@ -55,6 +55,10 @@ class tttBoard {
 
     takeTurn(square){
         this.currentTurn(square);
+    }
+
+    trackTurn(){
+        this.turnTracker.innerHTML = `${this.turn}'s turn`;
     }
 
     removeSpaces() {

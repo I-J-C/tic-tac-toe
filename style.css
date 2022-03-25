@@ -14,6 +14,10 @@ body {
     gap: 30px;
 }
 
+/* #turn-tracker{
+
+} */
+
 #reset-button {
     height: 3em;
     width: 7em;
@@ -105,11 +109,3 @@ footer span {
 .blue {
     background-color:#26406c;
 }
-
-/* #square1 {
-    background-color: #87200e;
-}
-
-#square2 {
-    background-color:#26406c;
-} */

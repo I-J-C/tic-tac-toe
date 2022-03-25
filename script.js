@@ -1,12 +1,11 @@
 class tttBoard {
-    constructor(boardGrid) {
+    constructor(boardGrid, turnTracker) {
         // this.player1 = player1;
         // this.player2 = player2;
         this.boardGrid = boardGrid;
         this.setRedTurn();
-        this.addListeners();
-        //add this to constructor for bonus
-        // this.turnTracker = turnTracker;
+        this.addClickListeners();
+        this.turnTracker = turnTracker;
     }
 
     currentTurn(square) {
@@ -17,6 +16,7 @@ class tttBoard {
             square.classList.add('blue');
             this.setRedTurn();
         }
+        this.turnTracker.innerHTML = `${this.turn} turn`;
     }
 
     getTurn() {
@@ -32,17 +32,29 @@ class tttBoard {
     }
 
     resetGame() {
-        this.removeSpaces();
-        this.addListeners();
+        this.removeClickListeners();
+        this.addClickListeners();
         this.setRedTurn();
+        this.turnTracker.innerHTML = `${this.turn} turn`;
+        this.removeSpaces();
     }
 
-    addListeners(){
+    addClickListeners(){
         for (let i=0; i<this.boardGrid.length; i++) {
             this.boardGrid[i].addEventListener('click', () => {
                 this.currentTurn(this.boardGrid[i]);
             }, {once:true})
         }
+    }
+
+    removeClickListeners(){
+        this.boardGrid.forEach((square) => {
+            square.click();
+        });
+    }
+
+    takeTurn(square){
+        this.currentTurn(square);
     }
 
     removeSpaces() {
@@ -51,15 +63,15 @@ class tttBoard {
                 this.boardGrid[i].classList.remove('blue');
             }
         }
-        // checkSquare(square){
-        //     this.currentTurn(square);
-        //     //ADD LINE HERE TO TRACK CURRENT TURN
-        // }
     }
 
 
-const squares = document.querySelectorAll('.grid-square');
+const squaresNodeList = document.querySelectorAll('.grid-square');
+const squares = Array.from(squaresNodeList);
 const resetButton = document.querySelector('#reset-button');
+const turnTracker = document.querySelector('#turn-tracker');
 
-board = new tttBoard(squares);
-resetButton.addEventListener('click', () => {board.resetGame()});
+board = new tttBoard(squares, turnTracker);
+resetButton.addEventListener('click', () => {
+    board.resetGame();
+});
